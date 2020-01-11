@@ -7,8 +7,8 @@ import { bindActionCreators } from "redux";
 
 import * as Actions from "../../store/actions";
 
-const Link = props => (
-  <a className="link" onClick={props.onClick} href={props.url}>
+const Link = (props, { isAddingHotspot }) => (
+  <a onClick={props.onClick} href={props.url} className={props.hotspotClass}>
     Link fake {props.id}
   </a>
 );
@@ -27,6 +27,7 @@ const Navbar = ({ isAddingHotspot, addHotspot }) => {
       key={i}
       id={i}
       onClick={e => (isAddingHotspot ? addHotspot(e, link) : null)}
+      hotspotClass={isAddingHotspot ? "link-hotspot" : "link "}
     />
   ));
   return (
