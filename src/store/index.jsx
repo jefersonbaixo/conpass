@@ -13,15 +13,20 @@ function reducer(state = INITIAl_STATE, action) {
     const newList = [...state.hotspots].filter(
       item => item.id !== action.hotspot.id
     );
+    localStorage.clear();
+    localStorage.setItem("Hotspots", JSON.stringify(newList));
     return { ...state, hotspots: newList };
   }
 
   if (action.type === "ADD_HOTSPOT") {
     action.event.preventDefault();
-    const newList = [...state.hotspots];
-    const newItem = { ...action.item, id: Math.random() };
+    let newList = [...state.hotspots];
+    const newItem = { ...action.item, id: newList.length };
     newList.push(newItem);
-    return { ...state, hotspots: newList, isAddingHotspot: false };
+    const newState = { ...state, hotspots: newList, isAddingHotspot: false };
+    localStorage.clear();
+    localStorage.setItem("Hotspots", JSON.stringify(newList));
+    return newState;
   }
 
   return state;
