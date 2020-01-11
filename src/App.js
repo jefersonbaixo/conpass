@@ -4,6 +4,9 @@ import Navbar from "./components/Navbar";
 import List from "./components/List";
 import Button from "./components/Button";
 
+import { Provider } from "react-redux";
+import store from "./store";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +19,8 @@ class App extends React.Component {
   addHotSpot(e, link) {
     if (!this.state.isIncludingHotspot) return null;
     e.preventDefault();
+    link.id = Math.random();
+    console.log(link);
     let hotspots = this.state.hotspots.slice();
     hotspots.push(link);
     this.setState({ hotspots: hotspots });
@@ -23,6 +28,7 @@ class App extends React.Component {
   }
 
   deleteHotSpot(link) {
+    console.log(link);
     let hotspots = this.state.hotspots.slice();
     const linkIndex = hotspots.findIndex(el => el.id === link.id);
     hotspots.splice(linkIndex, 1);
@@ -32,12 +38,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Navbar onClick={(e, link) => this.addHotSpot(e, link)} />
-        <Button onClick={() => this.setState({ isIncludingHotspot: true })} />
-        <List
-          hotspots={this.state.hotspots}
-          onClick={el => this.deleteHotSpot(el)}
-        />
+        <Provider store={store}>
+          <Navbar onClick={(e, link) => this.addHotSpot(e, link)} />
+          <Button onClick={() => this.setState({ isIncludingHotspot: true })} />
+          <List
+            hotspots={this.state.hotspots}
+            onClick={el => this.deleteHotSpot(el)}
+          />
+        </Provider>
       </div>
     );
   }

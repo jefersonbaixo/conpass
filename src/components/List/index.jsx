@@ -1,25 +1,34 @@
 import React from "react";
 import "./List.sass";
 
-export default class List extends React.Component {
-  render() {
-    return (
-      <div className="divList">
-        <h5 className="listTitle">List of Hotspots</h5>
-        <ul className="list">
-          {this.props.hotspots.map((el, i) => (
-            <div className="el" key={i}>
-              <span className="elName">{el.url}</span>
-              <button
-                className="link-button"
-                onClick={() => this.props.onClick(el)}
-              >
-                Delete
-              </button>
-            </div>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import * as Actions from "../../store/actions";
+
+const List = ({ hotspots, deleteHotspot }) => (
+  <div className="divList">
+    <h5 className="listTitle">List of Hotspots</h5>
+    <ul className="list">
+      {hotspots.map((hotspot, i) => (
+        <div className="el" key={i}>
+          <span className="elName">{hotspot.url}</span>
+          <button
+            className="link-button"
+            onClick={() => deleteHotspot(hotspot)}
+          >
+            Delete
+          </button>
+        </div>
+      ))}
+    </ul>
+  </div>
+);
+
+const mapStateToProps = state => ({
+  hotspots: state.hotspots
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);
