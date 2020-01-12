@@ -1,8 +1,8 @@
-export function addHotspot(event, item) {
+export function addHotspot(url, name) {
   return {
     type: "ADD_HOTSPOT",
-    event,
-    item
+    url,
+    name
   };
 }
 

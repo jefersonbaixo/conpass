@@ -6,27 +6,21 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as Actions from "../../store/actions";
+import Popover from "../Popover";
 
-const Link = (props, { isAddingHotspot }) => (
-  <a onClick={props.onClick} href={props.url} className={props.hotspotClass}>
-    Link fake {props.id}
-  </a>
-);
-
-const Navbar = ({ isAddingHotspot, addHotspot }) => {
+const Navbar = ({ isAddingHotspot }) => {
   const links = [
-    { url: "https://conpass.io", id: 0 },
-    { url: "https://google.com", id: 1 },
-    { url: "https://facebook.com", id: 2 },
-    { url: "https://reactjs.org", id: 3 }
+    "https://conpass.io",
+    "https://google.com",
+    "https://facebook.com",
+    "https://reactjs.org"
   ];
 
   let listItems = links.map((link, i) => (
-    <Link
-      url={links[i].url}
+    <Popover
+      url={link}
       key={i}
-      id={i}
-      onClick={e => (isAddingHotspot ? addHotspot(e, link) : null)}
+      num={i}
       hotspotClass={isAddingHotspot ? "link-hotspot" : "link "}
     />
   ));

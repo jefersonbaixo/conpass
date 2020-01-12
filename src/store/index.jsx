@@ -7,7 +7,7 @@ const INITIAl_STATE = {
 
 function reducer(state = INITIAl_STATE, action) {
   if (action.type === "TOGGLE_IS_ADDING_HOTSPOT")
-    return { ...state, isAddingHotspot: true };
+    return { ...state, isAddingHotspot: !state.isAddingHotspot };
 
   if (action.type === "DELETE_HOTSPOT") {
     const newList = [...state.hotspots].filter(
@@ -19,9 +19,8 @@ function reducer(state = INITIAl_STATE, action) {
   }
 
   if (action.type === "ADD_HOTSPOT") {
-    action.event.preventDefault();
     let newList = [...state.hotspots];
-    const newItem = { ...action.item, id: newList.length };
+    const newItem = { id: newList.length, name: action.name, url: action.url };
     newList.push(newItem);
     const newState = { ...state, hotspots: newList, isAddingHotspot: false };
     localStorage.clear();
