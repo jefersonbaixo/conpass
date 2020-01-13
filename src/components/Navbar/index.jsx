@@ -13,11 +13,13 @@ import RedDot from "../RedDot/index";
 
 const Navbar = ({ isAddingHotspot }) => {
   function handleClick(e) {
+    if (!isAddingHotspot) return null;
     const dotPosition = {
       display: "flex",
       top: e.clientY - 10,
       left: e.clientX - 10
     };
+    isAddingHotspot = false;
     const redDotDiv = document.getElementById("red-dot");
     return ReactDOM.render(<RedDot dotPosition={dotPosition} />, redDotDiv);
   }
