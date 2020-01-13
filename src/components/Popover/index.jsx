@@ -53,7 +53,7 @@ const Popover = ({ isAddingHotspot, addHotspot, url, hotspotClass, num }) => {
               margin="dense"
               id="name"
               label="Hotspot Name"
-              type="email"
+              type="text"
               fullWidth
               value={value}
               onChange={handleChange}
