@@ -37,15 +37,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="app-root">
         <Provider store={store}>
-          <Navbar onClick={(e, link) => this.addHotSpot(e, link)} />
-          <Button onClick={() => this.setState({ isIncludingHotspot: true })} />
-          <List
-            hotspots={this.state.hotspots}
-            onClick={el => this.deleteHotSpot(el)}
-          />
+          <Navbar />
+          <Button />
+          <List hotspots={this.state.hotspots} />
         </Provider>
+        <div id="red-dot"></div>
       </div>
     );
   }
