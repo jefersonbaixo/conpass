@@ -2,7 +2,8 @@ import { createStore } from "redux";
 
 const INITIAl_STATE = {
   isAddingHotspot: false,
-  hotspots: []
+  hotspots: [],
+  positions: []
 };
 
 function reducer(state = INITIAl_STATE, action) {
@@ -20,9 +21,17 @@ function reducer(state = INITIAl_STATE, action) {
 
   if (action.type === "ADD_HOTSPOT") {
     let newList = [...state.hotspots];
-    const newItem = { id: newList.length, name: action.name, url: action.url };
+    const newItem = {
+      id: newList.length,
+      name: action.name,
+      url: action.url
+    };
     newList.push(newItem);
-    const newState = { ...state, hotspots: newList, isAddingHotspot: false };
+    const newState = {
+      ...state,
+      hotspots: newList,
+      isAddingHotspot: false
+    };
     localStorage.clear();
     localStorage.setItem("Hotspots", JSON.stringify(newList));
     return newState;

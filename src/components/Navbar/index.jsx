@@ -11,17 +11,18 @@ import * as Actions from "../../store/actions";
 import Popover from "../Popover";
 import RedDot from "../RedDot/index";
 
-const Navbar = ({ isAddingHotspot }) => {
+const Navbar = ({ isAddingHotspot, positions }) => {
   function handleClick(e) {
     if (!isAddingHotspot) return null;
-    const dotPosition = {
-      display: "flex",
-      top: e.clientY - 10,
-      left: e.clientX - 10
-    };
+    const dotPosition = [e.clientX - 10, e.clientY - 10];
+    positions.push(dotPosition);
     isAddingHotspot = false;
     const redDotDiv = document.getElementById("red-dot");
-    return ReactDOM.render(<RedDot dotPosition={dotPosition} />, redDotDiv);
+    console.log(positions);
+    return ReactDOM.render(
+      positions.map((item, i) => <RedDot dotPosition={item} key={i} />),
+      redDotDiv
+    );
   }
 
   const links = [
@@ -48,7 +49,8 @@ const Navbar = ({ isAddingHotspot }) => {
 };
 
 const mapStateToProps = state => ({
-  isAddingHotspot: state.isAddingHotspot
+  isAddingHotspot: state.isAddingHotspot,
+  positions: state.positions
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);

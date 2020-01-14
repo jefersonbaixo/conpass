@@ -10,7 +10,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
 
-const Popover = ({ isAddingHotspot, addHotspot, url, hotspotClass, num }) => {
+const Popover = ({
+  isAddingHotspot,
+  addHotspot,
+  positions,
+  url,
+  hotspotClass,
+  num
+}) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -28,6 +35,7 @@ const Popover = ({ isAddingHotspot, addHotspot, url, hotspotClass, num }) => {
 
   const handleClose = () => {
     setValue("");
+    positions.pop();
     setOpen(false);
   };
 
@@ -74,7 +82,8 @@ const Popover = ({ isAddingHotspot, addHotspot, url, hotspotClass, num }) => {
 };
 
 const mapStateToProps = state => ({
-  isAddingHotspot: state.isAddingHotspot
+  isAddingHotspot: state.isAddingHotspot,
+  positions: state.positions
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
